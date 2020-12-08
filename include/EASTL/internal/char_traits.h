@@ -253,7 +253,7 @@ namespace eastl
 	template<typename T>
 	inline const T* Find(const T* p, T c, size_t n)
 	{
-		for(; n > 0; --n, ++p)
+		for(; n > 0;     --n, ++p)
 		{
 			if(*p == c)
 				return p;
@@ -267,8 +267,17 @@ namespace eastl
 		return (const char*)memchr(p, c, n);
 	}
 
-
+#if _MSC_VER && _MSC_VER <=1900
 	template<typename T>
+	inline size_t CharStrlen(const T* p)
+	{
+		const auto* pCurrent = p;
+		while(*pCurrent)
+			++pCurrent;
+		return (size_t)(pCurrent - p);
+	}
+#else
+    template<typename T>
 	inline EA_CPP14_CONSTEXPR size_t CharStrlen(const T* p)
 	{
 		const auto* pCurrent = p;
@@ -276,7 +285,7 @@ namespace eastl
 			++pCurrent;
 		return (size_t)(pCurrent - p);
 	}
-
+#endif
 
 	template <typename T>
 	inline T* CharStringUninitializedCopy(const T* pSource, const T* pSourceEnd, T* pDestination)

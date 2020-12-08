@@ -250,7 +250,7 @@ namespace eastl
 		// library working group has tentatively approved it, as it
 		// allows const and non-const reverse_iterators to interoperate.
 		template <typename U>
-		EA_CPP14_CONSTEXPR reverse_iterator<Iterator>& operator=(const reverse_iterator<U>& ri)
+		EA_CPP14_CONSTEXPR reverse_iterator<Iterator>& operator=(const reverse_iterator<U>& ri) const
 			{ mIterator = ri.base(); return *this; }
 
 		EA_CPP14_CONSTEXPR iterator_type base() const
@@ -265,20 +265,20 @@ namespace eastl
 		EA_CPP14_CONSTEXPR pointer operator->() const
 			{ return &(operator*()); }
 
-		EA_CPP14_CONSTEXPR reverse_iterator& operator++()
+		EA_CPP14_CONSTEXPR reverse_iterator& operator++() const
 			{ --mIterator; return *this; }
 
-		EA_CPP14_CONSTEXPR reverse_iterator operator++(int)
+		EA_CPP14_CONSTEXPR reverse_iterator operator++(int) const
 		{
 			reverse_iterator ri(*this);
 			--mIterator;
 			return ri;
 		}
 
-		EA_CPP14_CONSTEXPR reverse_iterator& operator--()
+		EA_CPP14_CONSTEXPR reverse_iterator& operator--() const
 			{ ++mIterator; return *this; }
 
-		EA_CPP14_CONSTEXPR reverse_iterator operator--(int)
+		EA_CPP14_CONSTEXPR reverse_iterator operator--(int) const
 		{
 			reverse_iterator ri(*this);
 			++mIterator;
@@ -288,13 +288,13 @@ namespace eastl
 		EA_CPP14_CONSTEXPR reverse_iterator operator+(difference_type n) const
 			{ return reverse_iterator(mIterator - n); }
 
-		EA_CPP14_CONSTEXPR reverse_iterator& operator+=(difference_type n)
+		EA_CPP14_CONSTEXPR reverse_iterator& operator+=(difference_type n) const
 			{ mIterator -= n; return *this; }
 
 		EA_CPP14_CONSTEXPR reverse_iterator operator-(difference_type n) const
 			{ return reverse_iterator(mIterator + n); }
 
-		EA_CPP14_CONSTEXPR reverse_iterator& operator-=(difference_type n)
+		EA_CPP14_CONSTEXPR reverse_iterator& operator-=(difference_type n) const
 			{ mIterator += n; return *this; }
 
 		// http://cplusplus.github.io/LWG/lwg-defects.html#386, 
