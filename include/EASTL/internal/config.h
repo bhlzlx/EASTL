@@ -1719,23 +1719,19 @@ typedef EASTL_SSIZE_T eastl_ssize_t; // Signed version of eastl_size_t. Concept 
 	#define EASTLFree(allocator, p, size) (allocator).deallocate((void*)(p), (size)) // Important to cast to void* as p may be non-const.
 #endif
 
-#ifndef EASTLAllocatorType
-	#define EASTLAllocatorType eastl::allocator
-#endif
-
 #ifndef EASTLDummyAllocatorType
 	#define EASTLDummyAllocatorType eastl::dummy_allocator
 #endif
 
-#ifndef EASTLAllocatorDefault
-	// EASTLAllocatorDefault returns the default allocator instance. This is not a global
-	// allocator which implements all container allocations but is the allocator that is
-	// used when EASTL needs to allocate memory internally. There are very few cases where
-	// EASTL allocates memory internally, and in each of these it is for a sensible reason
-	// that is documented to behave as such.
-	#define EASTLAllocatorDefault eastl::GetDefaultAllocator
+#define EASTL_USER_DEFINED_ALLOCATOR // 添加这个宏
+
+#ifndef EASTLAllocatorType
+	#define EASTLAllocatorType gx::GxEASTLAllocatorDelegate
 #endif
 
+#ifndef EASTLAllocatorDefault
+	#define EASTLAllocatorDefault gx::GetEASTLDefaultAllocator
+#endif
 
 /// EASTL_ALLOCATOR_DEFAULT_NAME
 ///
